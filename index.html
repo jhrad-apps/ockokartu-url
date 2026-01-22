@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VacciCard – Family Vaccination Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange-500: #F97316;
+            --orange-600: #EA580C;
+            --orange-100: #FFEDD5;
+            --green-500: #22C55E;
+            --green-100: #DCFCE7;
+            --red-500: #EF4444;
+            --red-100: #FEE2E2;
+            --slate-900: #0F172A;
+            --slate-700: #334155;
+            --slate-500: #64748B;
+            --slate-200: #E2E8F0;
+            --slate-100: #F1F5F9;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--slate-900);
+            background: linear-gradient(180deg, var(--orange-100) 0%, var(--white) 40%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--slate-900);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--orange-500);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .logo-text {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate-700);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange-500);
+        }
+
+        .nav-cta {
+            background: var(--slate-900);
+            color: var(--white) !important;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            color: var(--white) !important;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--slate-200);
+        }
+
+        .lang-option {
+            font-size: 1.25rem;
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .lang-option:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .lang-option.active {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--slate-700);
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .hero-badge span {
+            color: var(--green-500);
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .hero h1 .highlight {
+            color: var(--orange-500);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--slate-600);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--orange-500);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-600);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--white);
+            color: var(--slate-900);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            border: 1px solid var(--slate-200);
+        }
+
+        .btn-secondary:hover {
+            background: var(--slate-100);
+            transform: translateY(-2px);
+        }
+
+        /* App Preview */
+        .app-preview {
+            max-width: 320px;
+            margin: 4rem auto 0;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .app-preview img {
+            width: 100%;
+            border-radius: 32px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15), 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--slate-600);
+            font-size: 1.125rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--slate-200);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            border-color: var(--orange-500);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-icon.orange { background: var(--orange-100); }
+        .feature-icon.green { background: var(--green-100); }
+        .feature-icon.red { background: var(--red-100); }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--slate-600);
+            font-size: 0.95rem;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: var(--slate-900);
+            color: var(--white);
+        }
+
+        .how-it-works .section-header h2 {
+            color: var(--white);
+        }
+
+        .how-it-works .section-header p {
+            color: var(--slate-400);
+        }
+
+        .steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--orange-500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1.25rem;
+        }
+
+        .step h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .step p {
+            color: var(--slate-400);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 6rem 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 2px solid var(--orange-500);
+            box-shadow: 0 20px 60px rgba(249, 115, 22, 0.15);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--orange-100);
+            color: var(--orange-600);
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-price {
+            font-family: 'Fraunces', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price span {
+            font-size: 1.25rem;
+            color: var(--slate-500);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+        }
+
+        .pricing-desc {
+            color: var(--slate-600);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--slate-100);
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .check {
+            color: var(--green-500);
+            font-weight: bold;
+        }
+
+        .pricing-note {
+            font-size: 0.875rem;
+            color: var(--slate-500);
+            margin-top: 1.5rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .faq-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .faq-item h3::before {
+            content: "Q";
+            background: var(--orange-100);
+            color: var(--orange-600);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .faq-item p {
+            color: var(--slate-600);
+            font-size: 0.95rem;
+            padding-left: 2.5rem;
+        }
+
+        /* Privacy Section */
+        .privacy-section {
+            padding: 4rem 2rem;
+            background: var(--green-100);
+        }
+
+        .privacy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .privacy-content h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .privacy-content p {
+            color: var(--slate-700);
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .privacy-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: var(--slate-700);
+        }
+
+        .privacy-badge span {
+            font-size: 1.25rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--slate-900);
+            color: var(--slate-400);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--slate-400);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features, .pricing, .faq {
+                padding: 4rem 1.5rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">💉</div>
+                <span class="logo-text">VacciCard</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="https://apps.apple.com/app/vaccicard/id6756503200" class="nav-cta">Download</a>
+                <div class="lang-switcher">
+                    <a href="index-cs.html" class="lang-option">🇨🇿</a>
+                    <a href="index.html" class="lang-option active">🇬🇧</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>✓</span> Available on App Store
+        </div>
+        <h1>Track vaccinations for your <span class="highlight">whole family</span></h1>
+        <p>Keep everyone's immunization records organized in one simple app. Parents, kids, and even pets.</p>
+        <div class="hero-buttons">
+            <a href="https://apps.apple.com/app/vaccicard/id6756503200" class="btn-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download for iPhone
+            </a>
+            <a href="#features" class="btn-secondary">
+                See features
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Everything you need</h2>
+            <p>Simple tools to keep your family's vaccinations on track</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon orange">👨‍👩‍👧‍👦</div>
+                <h3>Whole Family</h3>
+                <p>Track vaccinations for unlimited family members — parents, children, grandparents.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon green">🐕</div>
+                <h3>Pets Too</h3>
+                <p>Add your dogs and cats. Keep their vaccination records alongside the family.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon red">🔔</div>
+                <h3>Smart Reminders</h3>
+                <p>Set custom notifications — days, weeks, or months before vaccines are due.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon orange">🎨</div>
+                <h3>Color-Coded Status</h3>
+                <p>See at a glance: green for current, orange for expiring soon, red for overdue.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon green">📅</div>
+                <h3>Calendar Sync</h3>
+                <p>Add vaccination appointments directly to your calendar with one tap.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon red">🔒</div>
+                <h3>Private & Secure</h3>
+                <p>All data stays on your device. Protected with Face ID or PIN. No account needed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <div class="section-header">
+            <h2>How it works</h2>
+            <p>Get started in three simple steps</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Add Family</h3>
+                <p>Create profiles for each family member and pet you want to track.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Log Vaccines</h3>
+                <p>Record vaccinations with dates, next doses, and optional notes.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Stay Informed</h3>
+                <p>Get reminders before vaccines expire. Never miss a booster.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <h2>Simple pricing</h2>
+            <p>No subscriptions. Pay once, use forever.</p>
+        </div>
+        <div class="pricing-card">
+            <div class="pricing-badge">One-time purchase</div>
+            <div class="pricing-price">$2.99 <span>USD</span></div>
+            <p class="pricing-desc">Unlock everything, forever</p>
+            <ul class="pricing-features">
+                <li><span class="check">✓</span> Unlimited family members</li>
+                <li><span class="check">✓</span> Unlimited pets</li>
+                <li><span class="check">✓</span> Unlimited vaccinations</li>
+                <li><span class="check">✓</span> All reminder options</li>
+                <li><span class="check">✓</span> Data export</li>
+                <li><span class="check">✓</span> All future updates</li>
+            </ul>
+            <a href="https://apps.apple.com/app/vaccicard/id6756503200" class="btn-primary" style="width: 100%; justify-content: center;">
+                Get VacciCard
+            </a>
+            <p class="pricing-note">Try free with 3 vaccinations</p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <h2>Common questions</h2>
+        </div>
+        <div class="faq-item">
+            <h3>Where is my data stored?</h3>
+            <p>All data is stored exclusively on your device. We don't send anything to any servers and have no access to your health records.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How can I restore data after changing phones?</h3>
+            <p>Currently, data is stored only on your device. iCloud backup support is coming in a future update.</p>
+        </div>
+        <div class="faq-item">
+            <h3>I forgot my PIN code. What should I do?</h3>
+            <p>If you have Face ID or Touch ID enabled, use that to access the app. Then you can change your PIN in settings.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How does the color coding work?</h3>
+            <p>🔴 Red = expired, 🟠 Orange = expiring soon (1-6 days), 🟢 Green = all good (7+ days until next dose).</p>
+        </div>
+        <div class="faq-item">
+            <h3>Do you collect any personal data?</h3>
+            <p>No. We only collect anonymous usage statistics through TelemetryDeck to improve the app. No personal or health data ever leaves your device.</p>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section class="privacy-section">
+        <div class="privacy-content">
+            <h2>Your privacy matters</h2>
+            <p>VacciCard is built with privacy at its core. No accounts, no cloud, no tracking.</p>
+            <div class="privacy-badges">
+                <div class="privacy-badge"><span>🔐</span> Data on device only</div>
+                <div class="privacy-badge"><span>👤</span> No account required</div>
+                <div class="privacy-badge"><span>🚫</span> No ads ever</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>© 2025 VacciCard. Made by Jakub Hradilek.</div>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="mailto:jhrad.apps@proton.me">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
