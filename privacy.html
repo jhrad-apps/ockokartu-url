@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy – VacciCard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange-500: #F97316;
+            --orange-600: #EA580C;
+            --orange-100: #FFEDD5;
+            --green-500: #22C55E;
+            --slate-900: #0F172A;
+            --slate-700: #334155;
+            --slate-500: #64748B;
+            --slate-200: #E2E8F0;
+            --slate-100: #F1F5F9;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--slate-900);
+            background: var(--white);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1rem 2rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--slate-900);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--orange-500);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .logo-text {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .back-link {
+            color: var(--slate-500);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--orange-500);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--slate-200);
+        }
+
+        .lang-option {
+            font-size: 1.25rem;
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .lang-option:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .lang-option.active {
+            opacity: 1;
+        }
+
+        /* Content */
+        .content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .content h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .last-updated {
+            color: var(--slate-500);
+            font-size: 0.95rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .content h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--slate-900);
+        }
+
+        .content p {
+            color: var(--slate-700);
+            margin-bottom: 1rem;
+        }
+
+        .content ul {
+            color: var(--slate-700);
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content a {
+            color: var(--orange-500);
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight-box {
+            background: var(--orange-100);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--orange-600);
+        }
+
+        .highlight-box ul {
+            margin-bottom: 0;
+        }
+
+        .contact-box {
+            background: var(--slate-100);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .contact-box h2 {
+            margin-top: 0;
+        }
+
+        .contact-box a.email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--slate-900);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .contact-box a.email:hover {
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--slate-500);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--slate-200);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 2rem 1.5rem;
+            }
+
+            .content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">💉</div>
+                <span class="logo-text">VacciCard</span>
+            </a>
+            <div class="nav-right">
+                <a href="index.html" class="back-link">← Back to home</a>
+                <div class="lang-switcher">
+                    <a href="privacy-cs.html" class="lang-option">🇨🇿</a>
+                    <a href="privacy.html" class="lang-option active">🇬🇧</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="content">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last updated: January 2026</p>
+
+        <p>VacciCard is a vaccination tracking app for you, your family, and your pets. We take your privacy seriously. This page explains how the app handles your data.</p>
+
+        <div class="highlight-box">
+            <h3>🔒 The short version</h3>
+            <ul>
+                <li>All your data stays on your device</li>
+                <li>We can't see your health records</li>
+                <li>No account or registration required</li>
+                <li>No ads, no data selling, ever</li>
+            </ul>
+        </div>
+
+        <h2>What data the app processes</h2>
+        <p>The app allows you to store the following information:</p>
+        <ul>
+            <li>Family member and pet names</li>
+            <li>Year of birth</li>
+            <li>Gender</li>
+            <li>Vaccination records (vaccine name, date, next dose date)</li>
+            <li>Notes about vaccinations</li>
+        </ul>
+
+        <h2>Where your data is stored</h2>
+        <p>All your personal data and vaccination records are stored exclusively on your device. We do not send this information to any servers.</p>
+        <p>We do not have access to your health data and cannot see, read, or process it.</p>
+
+        <h2>Analytics</h2>
+        <p>To improve the app, we use TelemetryDeck, which collects anonymous usage statistics. This data:</p>
+        <ul>
+            <li>Is not linked to your identity</li>
+            <li>Does not contain any personal information or health records</li>
+            <li>Cannot be used to track you</li>
+            <li>Is used solely to improve the app</li>
+        </ul>
+        <p>Learn more about TelemetryDeck's privacy: <a href="https://telemetrydeck.com/privacy" target="_blank">telemetrydeck.com/privacy</a></p>
+
+        <h2>What we don't do</h2>
+        <ul>
+            <li>We do not collect any personal data</li>
+            <li>We do not send your health records to any servers</li>
+            <li>We do not display advertisements</li>
+            <li>We do not share information with third parties</li>
+            <li>We do not require registration or login</li>
+        </ul>
+
+        <h2>Notifications</h2>
+        <p>The app may send local notifications about upcoming vaccination dates. These notifications are generated directly on your device, and no information leaves your phone.</p>
+
+        <h2>Security</h2>
+        <p>The app offers optional security using Face ID, Touch ID, or a PIN code. This security protects access to the app on your device.</p>
+
+        <h2>In-App Purchases</h2>
+        <p>The app offers a one-time purchase to unlock the full version. Payments are processed exclusively by Apple through the App Store. We do not have access to your payment information.</p>
+
+        <h2>Children</h2>
+        <p>The app does not knowingly collect any personal data from anyone, including children under 13. Since all health data remains only on your device, using the app poses no privacy risk to children.</p>
+
+        <h2>Changes to this policy</h2>
+        <p>If there are changes to this policy, we will update the "Last updated" date on this page.</p>
+
+        <div class="contact-box">
+            <h2>Questions?</h2>
+            <p>If you have any questions about this privacy policy, feel free to reach out.</p>
+            <a href="mailto:jhrad.apps@proton.me" class="email">
+                📧 jhrad.apps@proton.me
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 VacciCard. Made by Jakub Hradilek.</p>
+    </footer>
+</body>
+</html>
